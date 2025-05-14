@@ -95,11 +95,6 @@ install(DIRECTORY
   DESTINATION share/${PROJECT_NAME}/
 )
 
-# Install vocab files
-install(DIRECTORY
-  vocabulary
-  DESTINATION share/${PROJECT_NAME}/
-)
 
 # Install launch files.
 install(DIRECTORY
