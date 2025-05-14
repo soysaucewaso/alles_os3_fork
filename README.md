@@ -16,6 +16,8 @@ Tested on Ubuntu 20.04 with ROS2 Galactic.
 ### Notes
 In the original ORB SLAM3 paper, the author concluded Stereo-Inertial performed worse than Stereo-only for land vehicles due to lack of gyroscopic excitiation.
 
+This repo installs both OpenCV 4.2 and 4.4 since the wrapper and ORB SLAM3 require different versions.
+
 ### Troubleshooting.
 
 `C++: fatal error: Killed signal terminated program cc1plus` when running cmake --build or make
@@ -43,9 +45,10 @@ sudo ./build.sh
 ```
 
 ### Wrapper Dependencies
+
 ```
 cd ../ROS2_WRAPPER/src/orbslam3ros2
-./ORB_SLAM3_ROS2_setup.sh
+sudo ./ORB_SLAM3_ROS2_setup.sh
 ```
 
 ### Wrapper Build
