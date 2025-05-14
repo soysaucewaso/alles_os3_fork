@@ -38,15 +38,13 @@ Building dependencies can take around an hour.
 Next, build ORBSLAM3
 
 ```
-cd ORB_SLAM3
 chmod +x build.sh
 sudo ./build.sh
-cd ..
 ```
 
 ### Wrapper Dependencies
 ```
-cd ROS2_WRAPPER/src/orbslam3ros2
+cd ../ROS2_WRAPPER/src/orbslam3ros2
 ./ORB_SLAM3_ROS2_setup.sh
 ```
 
