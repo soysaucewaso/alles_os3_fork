@@ -48,7 +48,9 @@ sudo ./build.sh
 
 ```
 cd ../ROS2_WRAPPER/src/orbslam3ros2
-sudo ./ORB_SLAM3_ROS2_setup.sh
+sudo bash
+export ROS_DISTRO=yourdistro
+./ORB_SLAM3_ROS2_setup.sh
 ```
 
 ### Wrapper Build
@@ -59,6 +61,8 @@ Then change Line 8 of CMakeModules/FindORB_SLAM3.cmake to the path to ORB_SLAM3.
 
 ```
 cd ../..
+sudo bash
+source /opt/ros/yourdistro/setup.bash
 colcon build --symlink-install orbslam3
 ```
 
@@ -66,11 +70,11 @@ colcon build --symlink-install orbslam3
      
 ### Source the workspace
 
-`$ source ~/colcon_ws/install/local_setup.bash`
+`$ source ROS2_WRAPPER/install/local_setup.bash`
 
 Run orbslam mode, which you want.
 This repository only support MONO, STEREO, RGBD, STEREO-INERTIAL mode now.
-You can find vocabulary file and config file in here. (e.g. orbslam3_ros2/vocabulary/ORBvoc.txt, orbslam3_ros2/config/monocular/TUM1.yaml for monocular SLAM).
+You can find vocabulary file and config file in here. (e.g. ORB_SLAM3/Vocabulary/ORBvoc.txt, orbslam3_ros2/config/monocular/TUM1.yaml for monocular SLAM).
 
 #### MONO mode
 
