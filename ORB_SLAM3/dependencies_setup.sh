@@ -16,7 +16,7 @@ sed -i -E 's/\scatch2//gI' ./scripts/install_prerequisites.sh
 ./scripts/install_prerequisites.sh recommended
 
 cmake -B build -DPython3_EXECUTABLE=`which python3`
-cmake --build build -j$(N_PARALLEL)
+cmake --build build -j$N_PARALLEL
 cd build
 make install
 cd ..
@@ -28,7 +28,7 @@ unzip opencv.zip
 cd opencv-4.4.0
 mkdir -p build && cd build
 cmake ..
-cmake --build . -j$(N_PARALLEL)
+cmake --build . -j$N_PARALLEL
 
 make install
 
