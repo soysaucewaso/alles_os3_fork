@@ -2,7 +2,7 @@
 Orbslam3 is a Visual Simulataneous Localization and Mapping algorithm. This repo contains a ROS2 wrapper to subscribe to image/IMU topics and publish to pose estimates.
 
 ### Alternatives
-jnskkmhr's orbslam3(ROS2 Wrapper) and jnskkmhr's ORB-SLAM3-STEREO-FIXED have better documentation, been tested much more, and provide all functionality this repo provides
+jnskkmhr's orbslam3(ROS2 Wrapper) and jnskkmhr's ORB-SLAM3-STEREO-FIXED are a good alternative with docker images for easy deployment, and provide all functionality this repo provides
 
 ### Efficacy
 This repo mapped and localized accurately for me with EuRoC ros2 bags
@@ -16,15 +16,21 @@ Tested on Ubuntu 20.04 with ROS2 Galactic.
 ### Notes
 In the original ORB SLAM3 paper, the author concluded Stereo-Inertial performed worse than Stereo-only for land vehicles due to lack of gyroscopic excitiation.
 
+### Troubleshooting.
+
+`C++: fatal error: Killed signal terminated program cc1plus` when running cmake --build or make
+- This means the system ran out of memory. Reduce N_PARALLEL at the start of scripts.
+
 ## Install Instructions
 
 ### ORBSLAM3 Dependencies
+Install Pangolin and OpenCV 4.4
 ```
 cd ORB_SLAM3
-./dependencies_setup.sh
+sudo ./dependencies_setup.sh
 ```
 
-It terminates early if any error occurs, so before rerunning comment out lines which were successfully ran.
+It terminates early if any error occurs, so before rerunning comment out lines which successfully ran.
 
 Building dependencies can take around an hour.
 
