@@ -63,7 +63,7 @@ Then change Line 8 of CMakeModules/FindORB_SLAM3.cmake to the path to ORB_SLAM3.
 cd ../..
 sudo bash
 source /opt/ros/yourdistro/setup.bash
-colcon build --symlink-install orbslam3
+colcon build --symlink-install --packages-select orbslam3
 ```
 
 ## Running
