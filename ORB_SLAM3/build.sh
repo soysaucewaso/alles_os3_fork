@@ -38,7 +38,9 @@ echo "Configuring and building ORB_SLAM3 ..."
 
 mkdir build
 cd build
-cmake .. -DCMAKE_BUILD_TYPE=Release
+# DOpenCV_DIR ensures OS3 only uses OpenCV 4.4
+# otherwise OS3 use 4.5
+cmake .. -DCMAKE_BUILD_TYPE=Release -DOpenCV_DIR=/usr/local/lib/cmake/opencv4
 make -j4
 
 echo "ORBSLAM3 build script completed"
