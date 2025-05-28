@@ -30,6 +30,7 @@ cd ../../../
 echo "Uncompress vocabulary ..."
 
 cd Vocabulary
+wget https://github.com/UZ-SLAMLab/ORB_SLAM3/raw/refs/heads/master/Vocabulary/ORBvoc.txt.tar.gz
 tar -xf ORBvoc.txt.tar.gz
 cd ..
 
@@ -40,4 +41,4 @@ cd build
 cmake .. -DCMAKE_BUILD_TYPE=Release
 make -j4
 
-echo "Built ORBSLAM3 Successfully"
+echo "ORBSLAM3 build script completed"
