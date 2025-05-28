@@ -28,7 +28,8 @@ unzip opencv.zip
 cd opencv-4.4.0
 mkdir -p build && cd build
 cmake ..
-cmake --build . -j$N_PARALLEL
+cmake --build -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local \
+  -DOPENCV_GENERATE_PKGCONFIG=ON . -j$N_PARALLEL
 
 make install
 
