@@ -11,10 +11,13 @@ When I tested ORB_SLAM3 with a RealSense D435i mounted on a tenth-scale car in S
 
 When I used a rosbag to build a map, and tested localization on that same map, ORB_SLAM3 quickly lost itself and never regained localization.
 
-Tested on Ubuntu 20.04 with ROS2 Galactic.
+Tested on 2 Almost Identical Ubuntu 20.04s with ROS2 Galactic.
 
 ### Notes
 In the original ORB SLAM3 paper, the author concluded Stereo-Inertial performed worse than Stereo-only for land vehicles due to lack of gyroscopic excitiation.
+
+Only tested with Stereo and Stereo-Inertial. Also may support MONO and RGBD with a bit of tinkering
+(Just replicate diffs between ROS2_wrapper and zang09/ORB_SLAM3_ROS2 from src/stereo and src/stereo-inertial to src/rgbd and src/monocular).
 
 This repo installs both OpenCV 4.2 and 4.4 since the wrapper and ORB SLAM3 require different versions.
 
@@ -22,6 +25,10 @@ This repo installs both OpenCV 4.2 and 4.4 since the wrapper and ORB SLAM3 requi
 
 `C++: fatal error: Killed signal terminated program cc1plus` when running cmake --build or make
 - This means the system ran out of memory. Reduce N_PARALLEL at the start of scripts.
+
+ORB SLAM3 crashing without error output
+- ORB SLAM3 is likely using OpenCV 4.5 instead of OpenCV 4.4.
+- Rebuild ORB SLAM3 and it's dependencies until `sudo ldd ORB_SLAM3/lib/libORB_SLAM3.so | grep opencv`shows only 4.4
 
 ## Install Instructions
 
@@ -55,9 +62,9 @@ export ROS_DISTRO=yourdistro
 
 ### Wrapper Build
 
-First change Line 5 of CMakeLists.txt to your own **python site-packages** path.
+First change Line 5 of ROS2_WRAPPER/src/orbslam3ros2/CMakeLists.txt to your own **python site-packages** path.
 
-Then change Line 8 of CMakeModules/FindORB_SLAM3.cmake to the path to ORB_SLAM3.
+Then change Line 8 of ROS2_WRAPPER/src/orbslam3ros2/CMakeModules/FindORB_SLAM3.cmake to the path to ORB_SLAM3.
 
 ```
 cd ../..
@@ -72,26 +79,27 @@ colcon build --symlink-install --packages-select orbslam3
 
 `$ source ROS2_WRAPPER/install/local_setup.bash`
 
-Run orbslam mode, which you want.
-This repository only support MONO, STEREO, RGBD, STEREO-INERTIAL mode now.
-You can find vocabulary file and config file in here. (e.g. ORB_SLAM3/Vocabulary/ORBvoc.txt, orbslam3_ros2/config/monocular/TUM1.yaml for monocular SLAM).
+Run the preferred orbslam mode. 
+Vocabulary file is at ../ORB_SLAM3/Vocabulary/ORBvoc.txt.
+This repository only supports MONO, STEREO, RGBD, STEREO-INERTIAL mode now.
+Config file is at ROS2_WRAPPER/src/orbslam3_ros2/config/<MODE>/<CAMERA>.yaml
 
 #### MONO mode
 
-`$ ros2 run orbslam3 mono PATH_TO_VOCABULARY PATH_TO_YAML_CONFIG_FILE`
+`$ ros2 run orbslam3 mono ../ORB_SLAM3/Vocabulary/ORBvoc.txt src/orbslam3_ros2/config/monocular/<CAMERA>.yaml`
 
 #### STEREO mode
 
-`$ ros2 run orbslam3 stereo PATH_TO_VOCABULARY PATH_TO_YAML_CONFIG_FILE BOOL_RECTIFY`
+`$ ros2 run orbslam3 stereo ../ORB_SLAM3/Vocabulary/ORBvoc.txt src/orbslam3_ros2/config/stereo/<CAMERA>.yaml BOOL_RECTIFY`
 
 #### RGBD mode
 
-`$ ros2 run orbslam3 rgbd PATH_TO_VOCABULARY PATH_TO_YAML_CONFIG_FILE`
+`$ ros2 run orbslam3 rgbd ../ORB_SLAM3/Vocabulary/ORBvoc.txt src/orbslam3_ros2/config/rgbd/
+<CAMERA>.yaml`
 
 #### STEREO-INERTIAL mode
 
-`$ ros2 run orbslam3 stereo-inertial PATH_TO_VOCABULARY PATH_TO_YAML_CONFIG_FILE BOOL_RECTIFY [BOOL_EQUALIZE]`
-
+`$ ros2 run orbslam3 stereo-inertial ../ORB_SLAM3/Vocabulary/ORBvoc.txt src/orbslam3_ros2/config/rgbd/<CAMERA>.yaml BOOL_RECTIFY [BOOL_EQUALIZE]`
 
 
 ## Implementation Notes
